@@ -1,0 +1,51 @@
+.overlay,
+.overlayBtn {
+    position: absolute;
+    top: 20px;
+    color: wheat;
+}
+
+.overlay {
+    left: 20px;
+}
+
+.overlayBtn {
+    right: 5px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px 20px;
+}
+
+.description {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 100px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+}
+
+border,
+.border {
+    border: solid;
+}
+
+fullHeightCard,
+.fullHeightCard {
+    height: 100%;
+}
+
+grid,
+.grid {
+    display: flex;
+}
