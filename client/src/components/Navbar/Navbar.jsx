@@ -1,25 +1,30 @@
-// import React, { useState, useEffect } from 'react';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 import FoodLogo from '../../images/foods.jpg';
 import './Navbar.css';
 
 const Navbar = () => {
-    // const [user, setUser] = useState(
-    //     JSON.parse(localStorage.getItem('profile')),
-    // );
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem('profile')),
+    );
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    // const logout = () => {};
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/');
+        setUser(null);
+    };
 
-    // useEffect(() => {
-    //     const token = user?.token;
+    useEffect(() => {
+        const token = user?.sub;
 
-    //     setUser(JSON.parse(localStorage.getItem('profile')));
-    // }, [location]);
-
-    const user = null;
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location]);
 
     return (
         <AppBar
@@ -75,10 +80,14 @@ const Navbar = () => {
                                 color: '#fff',
                                 backgroundColor: '#673AB7',
                             }}
-                            alt={user.result.name}
-                            src={user.result.imageUrl}
+                            alt={user.name}
+                            src={
+                                user.picture
+                                    ? user.picture
+                                    : 'https://via.placeholder.com/400'
+                            }
                         >
-                            {user.result.name.charAt(0)}
+                            {user.name.charAt(0)}
                         </Avatar>
                         <Typography
                             sx={{
@@ -87,7 +96,7 @@ const Navbar = () => {
                             }}
                             variant="h6"
                         >
-                            {user.result.name}
+                            {user.name}
                         </Typography>
                         <Button
                             variant="contained"

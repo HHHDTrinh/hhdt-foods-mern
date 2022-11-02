@@ -8,18 +8,13 @@ import {
     Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import GoogleLogo from './Icon';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import Input from './Input/Input';
+import LoginWithGoogle from '../LoginBy/Google';
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -33,21 +28,6 @@ const Auth = () => {
     };
 
     const handleChange = () => {};
-
-    const googleSucces = (response) => {
-        const token = response;
-        try {
-            dispatch({ type: 'AUTH', data: token });
-            navigate('/');
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleGoogleLogin = useGoogleLogin({
-        onSuccess: googleSucces,
-        onError: console.log('Login Failed'),
-    });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -132,18 +112,7 @@ const Auth = () => {
                     >
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
-                    <Button
-                        fullWidth
-                        color="secondary"
-                        sx={{
-                            marginBottom: 2,
-                        }}
-                        onClick={handleGoogleLogin}
-                        variant="contained"
-                        startIcon={<GoogleLogo />}
-                    >
-                        Sign in with Google
-                    </Button>
+                    <LoginWithGoogle />
                     <Grid item>
                         <Button
                             sx={{
