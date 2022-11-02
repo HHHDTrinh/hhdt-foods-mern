@@ -1,0 +1,10 @@
+.nav__left-content {
+    display: flex;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
