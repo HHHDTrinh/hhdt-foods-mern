@@ -4,24 +4,26 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
 import FoodLogo from '../../images/foods.jpg';
+import { LOGOUT } from '../../constants/actionTypes';
 import './Navbar.css';
 
 const Navbar = () => {
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem('profile')),
     );
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const logout = () => {
-        dispatch({ type: 'LOGOUT' });
+        dispatch({ type: LOGOUT });
         navigate('/');
         setUser(null);
     };
 
     useEffect(() => {
-        const token = user?.sub;
+        const token = user?.token;
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location]);
@@ -93,6 +95,7 @@ const Navbar = () => {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
+                                mr: 10,
                             }}
                             variant="h6"
                         >

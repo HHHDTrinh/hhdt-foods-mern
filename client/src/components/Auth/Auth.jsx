@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     Avatar,
     Button,
@@ -8,26 +8,47 @@ import {
     Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Input from './Input/Input';
+import { signup, signin } from '../../actions/auth';
 import LoginWithGoogle from '../LoginBy/Google';
 
 const Auth = () => {
+    const initialState = useRef({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [form, setForm] = useState(initialState.current);
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+
+        if (isSignUp) {
+            dispatch(signup(form, navigate));
+        } else {
+            dispatch(signin(form, navigate));
+        }
     };
 
     const switchMode = () => {
         setIsSignUp(!isSignUp);
-        handleShowPassword(false);
+        setShowPassword(false);
     };
 
-    const handleChange = () => {};
+    const handleChange = (e) =>
+        setForm({ ...form, [e.target.name]: e.target.value });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -117,6 +138,7 @@ const Auth = () => {
                         <Button
                             sx={{
                                 float: 'right',
+                                marginTop: '5px',
                             }}
                             onClick={switchMode}
                         >

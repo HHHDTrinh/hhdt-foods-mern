@@ -15,12 +15,10 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('common'));
 
-app.use('/v1/foods', foodsRoutes);
-
 const CONNECTION_URL = process.env.FOODS_MONGODB_URL;
 const PORT = process.env.PORT || 8000;
 
-mongoose.connect(process.env.FOODS_MONGODB_URL, () => {
+mongoose.connect(CONNECTION_URL, () => {
     console.log('Connected to MongoDB');
 });
 

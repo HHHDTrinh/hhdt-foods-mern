@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { gapi } from 'gapi-script';
 import { useNavigate } from 'react-router-dom';
+import { AUTH } from '../../constants/actionTypes';
 
 const LoginWithGoogle = () => {
     const clientId = process.env.REACT_APP_GOOGLE_KEY;
@@ -22,7 +23,7 @@ const LoginWithGoogle = () => {
     const onSuccess = async (res) => {
         const credentials = await res?.credential;
         try {
-            dispatch({ type: 'AUTH', data: credentials });
+            dispatch({ type: AUTH, data: credentials });
             navigate('/');
         } catch (error) {
             console.log(error);
